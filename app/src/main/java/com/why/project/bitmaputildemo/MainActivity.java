@@ -9,7 +9,6 @@ import android.widget.ImageView;
 
 import com.why.project.bitmaputildemo.utils.AppDir;
 import com.why.project.bitmaputildemo.utils.BitmapUtil;
-import com.why.project.bitmaputildemo.utils.FileUtils;
 
 import java.io.File;
 
@@ -22,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 	private Button btn_save;
 	private Button btn_show;
 	private ImageView img_show;
+
+	private String pngFilePath;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 		btn_save.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String pngFilePath = AppDir.getInstance(MainActivity.this).IMAGE + File.separator + System.currentTimeMillis() + ".png";
+				pngFilePath = AppDir.getInstance(MainActivity.this).IMAGE + File.separator + System.currentTimeMillis() + ".png";
 				Bitmap sourceBitmap = BitmapUtil.drawableToBitmap(getResources().getDrawable(R.mipmap.ic_launcher));
 				BitmapUtil.saveBitmapToSDCard(sourceBitmap,pngFilePath);
 			}
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 		btn_show.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String pngPath = FileUtils.firstFile(AppDir.getInstance(MainActivity.this).IMAGE);
+				String pngPath = pngFilePath;
 				Bitmap pngBitmap = BitmapUtil.getBitmapFromSDCard(pngPath);
 				img_show.setImageBitmap(pngBitmap);
 			}
